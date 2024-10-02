@@ -20,8 +20,19 @@ module JSON
       end
 
       def [](kid)
-        detect do |jwk|
-          jwk[:kid] && jwk[:kid] == kid
+        puts "[](kid = #{kid})"
+        if kid
+          found_key = detect do |jwk|
+            jwk[:kid] && jwk[:kid] == kid
+          end
+          raise JWK::Set::KidNotFound unless found_key
+          return found_key
+        elsif length == 1
+          puts "length == 1 >> #{first}"
+          return first
+        else # no kid && length > 1
+          puts "no kid && length !"
+          raise JWK::Set::KidNotFound
         end
       end
 

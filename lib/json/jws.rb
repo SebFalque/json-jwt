@@ -19,6 +19,7 @@ module JSON
     end
 
     def verify!(public_key_or_secret, algorithms = nil)
+      puts "verify!(public_key_or_secret = #{public_key_or_secret}, algorithms = #{algorithms})"
       if alg&.to_sym == :none
         raise UnexpectedAlgorithm if public_key_or_secret
         signature == '' or raise VerificationFailed

@@ -22,11 +22,12 @@ module JSON
     end
 
     def with_jwk_support(key)
+      puts "key (#{key.class}) = #{key}"
       case key
       when JSON::JWK
         key.to_key
       when JSON::JWK::Set
-        key[kid]&.to_key or raise JWK::Set::KidNotFound
+        key[kid]&.to_key
       else
         key
       end
